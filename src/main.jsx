@@ -1,6 +1,7 @@
 import { createRoot } from 'react-dom/client'
 import router from '@/router'
 import { RouterProvider } from 'react-router-dom'
+// import './index.css'
 //导入定制主题文件
 import '@/theme/theme.css'
 //注入redux

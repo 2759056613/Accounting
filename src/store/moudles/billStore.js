@@ -9,14 +9,20 @@ const billStore=createSlice(
    },
 //同步修改方法
 reducers:{
+  //只有数据改变的逻辑才会写到这里，并不是所有数据处理逻辑都写这
+  //比如后面添加新账单和收入时
  setBillList(state,action){
   state.billList=action.payload
- }
+ },
+ //同步数据提交到redux内
+  addBill(state,action){
+state.billList.push(action.payload)
+  }
 }
   }
 )
 //解构
-const {setBillList}=billStore.actions
+const {setBillList,addBill}=billStore.actions
 const reducer=billStore.reducer
 //异步请求方法
 const getBillList=()=>{
@@ -25,7 +31,14 @@ const getBillList=()=>{
    dispach(setBillList(res.data))
   }
 }
+//数据提交
+const addBillList=(data)=>{
+  return async (dispach)=>{
+   const res=await axios.post('http://localhost:8888/ka',data)
+   dispach(addBill(res.data))
+  }
+}
 
 
-export {getBillList} 
+export {getBillList,addBillList} 
 export default reducer
